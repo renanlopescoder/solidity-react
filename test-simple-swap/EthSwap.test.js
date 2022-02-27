@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const Token = artifacts.require("Token");
+const Token = artifacts.require("SimpleToken");
 const EthSwap = artifacts.require("EthSwap");
 
 require("chai").use(require("chai-as-promised")).should();
