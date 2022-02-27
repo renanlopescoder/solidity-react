@@ -6,7 +6,6 @@ contract Token {
     uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
     uint8   public decimals = 18;
 
-    // $ 1.00 (100 cents is a dollar)
     // Wei is the smallest ETH value
 
     event Transfer(
