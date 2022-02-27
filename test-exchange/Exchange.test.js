@@ -1,4 +1,4 @@
-import { ether, tokens, EVM_REVERT, ETHER_ADDRESS } from "./helpers";
+const { ether, tokens, EVM_REVERT, ETHER_ADDRESS } = require("./helper");
 
 const Token = artifacts.require("./Token");
 const Exchange = artifacts.require("./Exchange");
@@ -60,13 +60,13 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
       const event = log.args;
       String(event.token).should.equal(
         ETHER_ADDRESS,
-        "Ether address is correct"
+        "Ether address is correct",
       );
       String(event.user).should.equal(user1, "User address is correct");
       String(event.amount).should.equal(String(ether(1)), "Amount is correct");
       String(event.balance).should.equal(
         String(ether(1)),
-        "Contract balance is correct"
+        "Contract balance is correct",
       );
     });
   });
@@ -96,12 +96,12 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
         const event = log.args;
         String(event.token).should.equal(
           ETHER_ADDRESS,
-          "Ether address is correct"
+          "Ether address is correct",
         );
         String(event.user).should.equal(user1, "User address is correct");
         String(event.amount).should.equal(
           String(ether(1)),
-          "Amount is correct"
+          "Amount is correct",
         );
         String(event.balance).should.equal("0", "Contract balance is correct");
       });
@@ -132,13 +132,13 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
         let balance = await token.balanceOf(exchange.address);
         String(balance).should.equal(
           String(amount),
-          "Check exchange token balance"
+          "Check exchange token balance",
         );
 
         balance = await exchange.tokens(token.address, user1);
         String(balance).should.equal(
           String(amount),
-          "Check tokens on exchange"
+          "Check tokens on exchange",
         );
       });
 
@@ -148,16 +148,16 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
         const event = log.args;
         String(event.token).should.equal(
           token.address,
-          "Token address is correct"
+          "Token address is correct",
         );
         String(event.user).should.equal(user1, "User address is correct");
         String(event.amount).should.equal(
           String(tokens(10)),
-          "Amount is correct"
+          "Amount is correct",
         );
         String(event.balance).should.equal(
           String(tokens(10)),
-          "Balance is correct"
+          "Balance is correct",
         );
       });
     });
@@ -251,7 +251,7 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
         tokens(1),
         ETHER_ADDRESS,
         ether(1),
-        { from: user1 }
+        { from: user1 },
       );
     });
 
@@ -264,16 +264,16 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
       order.tokenGet.should.equal(token.address, "tokenGet is correct");
       String(order.amountGet).should.equal(
         String(tokens(1)),
-        "amountGet is correct"
+        "amountGet is correct",
       );
       order.tokenGive.should.equal(ETHER_ADDRESS, "tokenGive is correct");
       String(order.amountGive).should.equal(
         String(ether(1)),
-        "amountGive is correct"
+        "amountGive is correct",
       );
       String(order.timestamp).length.should.be.at.least(
         1,
-        "timestamp is present"
+        "timestamp is present",
       );
     });
 
@@ -286,16 +286,16 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
       event.tokenGet.should.equal(token.address, "tokenGet is correct");
       String(event.amountGet).should.equal(
         String(tokens(1)),
-        "amountGet is correct"
+        "amountGet is correct",
       );
       event.tokenGive.should.equal(ETHER_ADDRESS, "tokenGive is correct");
       String(event.amountGive).should.equal(
         String(ether(1)),
-        "amountGive is correct"
+        "amountGive is correct",
       );
       String(event.timestamp).length.should.be.at.least(
         1,
-        "timestamp is present"
+        "timestamp is present",
       );
     });
 
@@ -314,7 +314,7 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
           tokens(1),
           ETHER_ADDRESS,
           ether(1),
-          { from: user1 }
+          { from: user1 },
         );
       });
 
@@ -332,13 +332,13 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
             balance = await exchange.balanceOf(token.address, user1);
             String(balance).should.equal(
               String(tokens(1)),
-              "user1 received tokens"
+              "user1 received tokens",
             );
 
             balance = await exchange.balanceOf(ETHER_ADDRESS, user2);
             String(balance).should.equal(
               String(ether(1)),
-              "user2 received Ether"
+              "user2 received Ether",
             );
 
             balance = await exchange.balanceOf(ETHER_ADDRESS, user1);
@@ -347,14 +347,14 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
             balance = await exchange.balanceOf(token.address, user2);
             String(balance).should.equal(
               String(tokens(0.99)),
-              "user2 tokens deducted with fee applied"
+              "user2 tokens deducted with fee applied",
             );
 
             const feeAccount = await exchange.feeAccount();
             balance = await exchange.balanceOf(token.address, feeAccount);
             String(balance).should.equal(
               String(tokens(0.01)),
-              "feeAccount received fee"
+              "feeAccount received fee",
             );
           });
 
@@ -372,21 +372,21 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
             event.tokenGet.should.equal(token.address, "tokenGet is correct");
             String(event.amountGet).should.equal(
               String(tokens(1)),
-              "amountGet is correct"
+              "amountGet is correct",
             );
             event.tokenGive.should.equal(ETHER_ADDRESS, "tokenGive is correct");
             String(event.amountGive).should.equal(
               String(ether(1)),
-              "amountGive is correct"
+              "amountGive is correct",
             );
 
             String(event.userFill).should.equal(
               String(user2),
-              "userFill is correct"
+              "userFill is correct",
             );
             String(event.timestamp).length.should.be.at.least(
               1,
-              "timestamp is present"
+              "timestamp is present",
             );
           });
         });
@@ -440,16 +440,16 @@ contract("Exchange", ([deployerAccount, feeAccount, user1, user2]) => {
             event.tokenGet.should.equal(token.address, "tokenGet is correct");
             String(event.amountGet).should.equal(
               String(tokens(1)),
-              "amountGet is correct"
+              "amountGet is correct",
             );
             event.tokenGive.should.equal(ETHER_ADDRESS, "tokenGive is correct");
             String(event.amountGive).should.equal(
               String(ether(1)),
-              "amountGive is correct"
+              "amountGive is correct",
             );
             String(event.timestamp).length.should.be.at.least(
               1,
-              "timestamp is present"
+              "timestamp is present",
             );
           });
         });

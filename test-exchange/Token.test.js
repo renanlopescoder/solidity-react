@@ -1,4 +1,4 @@
-import { tokens, EVM_REVERT } from "./helpers";
+const { tokens, EVM_REVERT } = require("./helper");
 const Token = artifacts.require("./Token");
 
 require("chai").use(require("chai-as-promised")).should();
